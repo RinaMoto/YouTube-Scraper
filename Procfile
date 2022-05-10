@@ -1,1 +1,1 @@
-web gunicron scraper:app
+web: gunicorn --bind 0.0.0.0:$PORT scraper:app
