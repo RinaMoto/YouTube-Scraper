@@ -3,8 +3,9 @@ from flask import Flask, request
 import json 
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+app = Flask("__name__")
+# app = Flask(__name__)
+# CORS(app)
 
 @app.route('/videos', methods=['POST'])
 def get_vids():
@@ -21,6 +22,7 @@ def get_vids():
             channel_id = channel['channelId']
             videos = scrapetube.get_channel(
                 channel_id=f"{channel_id}", 
+                sort_by="popular",
                 limit=3
             )
             for video in videos:
@@ -32,5 +34,13 @@ def get_vids():
     print(json.dumps(urls))
     return json.dumps(urls), 200, {'ContentType':'application/json'}
 
-if __name__=="__main__":
-    app.run(threaded=True)
+with app.test_client() as c:
+    rv = c.post('/videos', json= {
+        "name": "Santana"
+    })
+    assert rv.status_code == 200
+
+app.run()
+
+# if __name__=="__main__":
+#     app.run(threaded=True)
