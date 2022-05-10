@@ -31,4 +31,4 @@ def get_vids():
     return json.dumps(urls), 200, {'ContentType':'application/json'}
 
 if __name__=="__main__":
-    app.run()
+    app.run(threaded=True, port=5000)
