@@ -1,10 +1,12 @@
 import scrapetube
 from flask import Flask, request
 import json 
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-@app.route('/videos', methods=['POST'])
+@app.route('/videos')
 def get_vids():
     artist = request.get_json()
     urls = []
@@ -31,4 +33,4 @@ def get_vids():
     return json.dumps(urls), 200, {'ContentType':'application/json'}
 
 if __name__=="__main__":
-    app.run(threaded=True, port=5000)
+    app.run(threaded=True)
