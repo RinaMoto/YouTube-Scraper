@@ -24,7 +24,7 @@ def get_vids():
                 limit=3
             )
             for video in videos:
-                urls.append({'url': 'https://www.youtube.com/watch?v=' + video['videoId']})
+                urls.append({'url': 'https://www.youtube.com/embed?v=' + video['videoId']})
             break
     except:
         return "Could not get Youtube channel of artist", 400
